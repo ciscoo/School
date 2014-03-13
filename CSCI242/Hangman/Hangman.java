@@ -27,6 +27,8 @@ public class Hangman {
     @SuppressWarnings("FieldMayBeFinal")
     private int allowedGuesses;
     
+    private int compare;
+    
     Random randomGen = new Random();
     
     public Scanner input;
@@ -74,6 +76,14 @@ public class Hangman {
         }
     }
     
+    public void setCompare (int n) {
+        compare = n;
+    }
+    
+    public int getCompare() {
+        return compare;
+    }
+    
     //Method that updates current game status
     public void update(char guess) {
         //Add guessed letter to ArrayList<>
@@ -81,11 +91,7 @@ public class Hangman {
         
         //Check if letter is in word
         //If true, replace char at position i with guessed letter
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) == guess) {
-                currentState = currentState.substring(0,i) + guess + currentState.substring(i+1);    
-            }
-        }
+        checkState(guess);
         
         //Decrement guesses
         allowedGuesses -= 1;
@@ -94,7 +100,15 @@ public class Hangman {
         System.out.println("Guesses remaining: " + getIncorrectGuessesRemaining());
         System.out.println("Guessed letters: " + getGuessedLetters());
         System.out.println("Current state: " + getCurrentState());
-        System.out.println(getWord());
+        //System.out.println(getWord());
+    }
+    
+    public void checkState(char guess) {
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == guess) {
+                currentState = currentState.substring(0,i) + guess + currentState.substring(i+1);    
+            }
+        }
     }
     
     //Method to random select a word from Lexicon
@@ -136,11 +150,11 @@ public class Hangman {
     }
     
     public boolean gameOver() {
-        return allowedGuesses == 0;
+        return !currentState.contains("-") || incorrectGuesses >= allowedGuesses;
     }
     
     public String gameOverMessage() {
-        return "You lose!";
+        return "You lose! \n Word was: " + getWord();
     }
         
     public int getIncorrentGuessesMade() {
