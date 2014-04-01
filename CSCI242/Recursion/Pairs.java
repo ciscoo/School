@@ -15,12 +15,18 @@ public class Pairs {
     
     /**
      * Counts the number of pairs in a given string.
-     * @param str - The given string for pairs
-     * @return
+     * @param str The given string for pairs
+     * @return the number of pairs in the string
      */
     public static int countPairs (String str) {
         return (str.equals("") || str.length() < 3 ) ? 0
              : (str.charAt(0) == str.charAt(2))      ? 1 + countPairs(str.substring(1))
              :  countPairs(str.substring(1));
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(countPairs("AAA"));
+        System.out.println(countPairs("AxAxA"));
+        System.out.println(countPairs("AxAxAxAxAxA"));
     }
 }

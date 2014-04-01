@@ -15,12 +15,19 @@ public class Sum {
     
     /**
      * Sums up the digits of a given number
-     * @param num - the number to sum
-     * @return sum of numbers
+     * @param num The number to sum
+     * @return Sum of numbers in a given number
      */
     public static int sumDigits (int num) {
         return (num < 0) ? sumDigits(num * -1)
              : (num/10 == 0) ? num
              :  num % 10 + sumDigits(num/10);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(sumDigits(12) + " = 3");
+        System.out.println(sumDigits(123) + " = 6");
+        System.out.println(sumDigits(1234) + " = 10");
+        System.out.println(sumDigits(-12345) + " = 15");
     }
 }
